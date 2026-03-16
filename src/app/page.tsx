@@ -16,6 +16,7 @@ const projects = [
   { title: "Un pequeño cambio",       category: "5.9M views",   video: "/videos/reel04-compressed.mp4", videoHD: "/videos/optimized/reel04-opt.mp4" },
   { title: "Celsux event 3",          category: "587 views",    video: "/videos/reel09-compressed.mp4", videoHD: "/videos/optimized/reel09-opt.mp4" },
   { title: "El medico de otro mundo", category: "4.7M views",   video: "/videos/reel10-compressed.mp4", videoHD: "/videos/optimized/reel10-opt.mp4" },
+  { title: "Cristales Solares",       category: "88.7k views",  video: "/videos/reel11-compressed.mp4", videoHD: "/videos/optimized/reel11-opt.mp4" },
 ]
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -39,10 +40,19 @@ function VideoModal({ src, onClose }: { src: string; onClose: () => void }) {
 
   useLockScroll(true)
 
+  // Cerrar con tecla Escape (desktop)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose()
     window.addEventListener("keydown", onKey)
     return () => window.removeEventListener("keydown", onKey)
+  }, [onClose])
+
+  // Botón atrás del navegador cierra el modal en vez de la página
+  useEffect(() => {
+    history.pushState({ modal: true }, "")
+    const onPop = () => onClose()
+    window.addEventListener("popstate", onPop)
+    return () => window.removeEventListener("popstate", onPop)
   }, [onClose])
 
   useEffect(() => {
@@ -88,9 +98,12 @@ function VideoModal({ src, onClose }: { src: string; onClose: () => void }) {
       <button
         onClick={handleClose}
         aria-label="Cerrar"
-        className="absolute top-6 right-8 text-white/40 hover:text-white transition text-2xl font-light tracking-widest"
+        className="absolute top-4 right-4 z-50 flex items-center justify-center w-10 h-10 rounded-full transition"
+        style={{ background: "rgba(0,0,0,0.6)", border: "1px solid rgba(255,255,255,0.2)" }}
       >
-        ✕
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">
+          <path d="M1 1l12 12M13 1L1 13" />
+        </svg>
       </button>
 
       <motion.div
@@ -330,8 +343,10 @@ function Carousel({ onPlay, paused }: { onPlay: (src: string) => void; paused: b
         ref={trackRef}
         onMouseEnter={() => { pausedRef.current = true }}
         onMouseLeave={() => { pausedRef.current = false }}
+        onTouchStart={() => { pausedRef.current = true }}
+        onTouchEnd={() => { setTimeout(() => { pausedRef.current = false }, 1500) }}
         className="flex gap-4 overflow-x-auto px-16 scrollbar-hide"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none", touchAction: "pan-x" }}
       >
         {loopItems.map((project, i) => (
           <ProjectCard
@@ -376,9 +391,6 @@ export default function Home() {
             Prinesa
           </span>
           <nav className="flex items-center gap-8">
-            <button onClick={() => scrollTo("work")} className="text-xs tracking-[0.15em] uppercase text-white/40 hover:text-white/90 transition">
-              Work
-            </button>
             <button onClick={() => scrollTo("about")} className="text-xs tracking-[0.15em] uppercase text-white/40 hover:text-white/90 transition">
               About
             </button>
