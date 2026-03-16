@@ -387,35 +387,71 @@ export default function Home() {
 
         {/* ── Nav ── */}
         <header className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-8 py-6">
-          <span className="text-sm font-medium tracking-[0.25em] uppercase text-white/90">
+          <span
+            className="text-sm font-medium tracking-[0.25em] uppercase"
+            style={{
+              color: "#ffffff",
+              backgroundImage: "linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0))",
+              backgroundSize: "100% 1px",
+              backgroundPosition: "0 100%",
+              backgroundRepeat: "no-repeat",
+              paddingBottom: "3px",
+            }}
+          >
             Prinesa
           </span>
           <nav className="flex items-center gap-8">
-            <button onClick={() => scrollTo("about")} className="text-xs tracking-[0.15em] uppercase text-white/40 hover:text-white/90 transition">
-              About
-            </button>
-            <button onClick={() => scrollTo("contact")} className="text-xs tracking-[0.15em] uppercase text-white/40 hover:text-white/90 transition-colors px-4 py-2 rounded-full border border-white/20 hover:border-white/60">
-              Contact
+            <button
+              onClick={() => scrollTo("contact")}
+              className="text-xs tracking-[0.15em] uppercase transition-all duration-300 px-5 py-2.5 rounded-full font-medium"
+              style={{ background: "white", color: "#000" }}
+              onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,0.85)" }}
+              onMouseLeave={e => { e.currentTarget.style.background = "white" }}
+            >
+              Contacto
             </button>
           </nav>
         </header>
 
         {/* ── Hero ── */}
-        <section className="flex flex-col justify-center min-h-screen px-8 md:px-16 pt-24">
+        <section className="flex flex-col justify-center px-8 md:px-16 pt-28 pb-14 md:pt-36 md:pb-20">
           <motion.div
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
             <p className="text-xs uppercase tracking-[0.3em] text-white/30 mb-8">
-              Creative Agency — Buenos Aires
+              Estudio Creativo — Buenos Aires
             </p>
-            <h1 className="font-bold leading-[0.92] tracking-tight max-w-4xl" style={{ fontSize: "clamp(3rem, 8vw, 7rem)" }}>
-              We craft<br />
-              <em className="not-italic text-white/35">visual stories</em><br />
-              that last.
+            <h1 className="font-bold leading-[0.95] tracking-tight max-w-4xl" style={{ fontSize: "clamp(2rem, 5.5vw, 5rem)" }}>
+              Convertimos tus <br />
+              <em className="not-italic text-white/35"> videos en reels </em><br />
+               que la gente realmente mira.
             </h1>
-            <div className="mt-12 flex items-center gap-6">
+            <p className="mt-6 text-white/40 text-sm md:text-base tracking-wide max-w-md">
+              Edición y estrategia de contenido para creadores y marcas.
+            </p>
+
+            {/* Prueba de autoridad */}
+            <motion.div
+              className="mt-10 flex flex-wrap items-center gap-6 md:gap-10"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {[
+                { value: "+5M", label: "Views generadas" },
+                { value: "+500", label: "Reels editados" },
+                { value: "Global", label: "Creadores y marcas" },
+              ].map(({ value, label }) => (
+                <div key={label} className="flex flex-col">
+                  <span className="text-white font-bold text-xl md:text-2xl tracking-tight">{value}</span>
+                  <span className="text-white/30 text-[10px] uppercase tracking-[0.2em] mt-0.5">{label}</span>
+                </div>
+              ))}
+            </motion.div>
+
+            <div className="mt-10 flex items-center gap-6">
               <button
                 onClick={() => scrollTo("work")}
                 className="text-sm tracking-widest uppercase text-white hover:text-white/60 transition flex items-center gap-3"
@@ -428,8 +464,6 @@ export default function Home() {
             </div>
           </motion.div>
         </section>
-
-        {/* ── Projects ── */}
         <section id="work" className="py-24">
           <div className="px-8 md:px-16 mb-12 flex items-end justify-between">
             <div>
@@ -441,6 +475,61 @@ export default function Home() {
             </span>
           </div>
           <Carousel onPlay={setActiveVideo} paused={!!activeVideo} />
+        </section>
+
+        {/* ── Cómo trabajamos ── */}
+        <section id="process" className="py-32 px-8 md:px-16">
+          <motion.div
+            className="max-w-5xl"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <p className="text-xs uppercase tracking-[0.25em] text-white/30 mb-4">Proceso</p>
+            <h2 className="font-bold leading-tight tracking-tight text-white mb-6" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>
+              Cómo trabajamos
+            </h2>
+            <p className="text-white/50 text-base leading-relaxed max-w-2xl mb-16">
+              Cada proyecto empieza con una conversación. Antes de hablar de edición, nos interesa entender tu contenido: qué querés comunicar, a quién le hablás y cómo funciona tu proceso de creación.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+              {[
+                {
+                  number: "01",
+                  title: "Entendemos tu contenido",
+                  description: "Analizamos tu estilo, el tipo de videos que querés publicar y cómo se adapta a formatos como Reels, TikTok o Shorts.",
+                },
+                {
+                  number: "02",
+                  title: "Definimos la forma de trabajo",
+                  description: "En base a tu flujo de contenido, armamos una propuesta personalizada: desde edición continua hasta planificación estratégica de videos.",
+                },
+                {
+                  number: "03",
+                  title: "Convertimos tus ideas en contenido",
+                  description: "A partir de tus crudos o ideas, transformamos el material en videos dinámicos, pensados para retener atención y funcionar en redes.",
+                },
+              ].map(({ number, title, description }, i) => (
+                <motion.div
+                  key={number}
+                  className="flex flex-col gap-4"
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                >
+                  <span className="text-white/15 font-bold" style={{ fontSize: "clamp(3rem, 6vw, 5rem)", lineHeight: 1 }}>
+                    {number}
+                  </span>
+                  <div className="w-8 h-px bg-white/20" />
+                  <h3 className="text-white font-medium text-lg leading-snug">{title}</h3>
+                  <p className="text-white/45 text-sm leading-relaxed">{description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </section>
 
         {/* ── About ── */}
@@ -499,6 +588,10 @@ export default function Home() {
                   historias se editan con intención y el contenido deja de ser solo un video
                   más para convertirse en algo que{" "}
                   <span className="text-white font-medium">realmente conecta.</span>
+                </p>
+                <p>
+                  <span className="text-white font-medium">Editamos y estructuramos contenido</span>{" "}
+                  para que retenga atención en redes.
                 </p>
               </div>
             </motion.div>
