@@ -655,7 +655,7 @@ export default function Home() {
 
             <div className="flex items-center gap-8 mt-6">
               <a
-                href="https://wa.me/5491133015519?text=Hola!%20Vi%20tu%20portfolio%20y%20me%20interesa%20trabajar%20juntos.%20%C2%BFPodr%C3%ADan%20contarme%20m%C3%A1s%20sobre%20sus%20servicios%20y%20coordinar%20una%20llamada%3F"
+                href="https://wa.me/5491171671829?text=Hola!%20Vi%20tu%20portfolio%20y%20me%20interesa%20trabajar%20juntos.%20%C2%BFPodr%C3%ADan%20contarme%20m%C3%A1s%20sobre%20sus%20servicios%20y%20coordinar%20una%20llamada%3F"
                 target="_blank" rel="noopener noreferrer"
                 className="group flex items-center gap-2 transition-all duration-300"
                 style={{ color: "#444" }}
